@@ -1,4 +1,4 @@
 php-desk
 ========
 
-PHP client for desk.com API
+PHP client for Desk.com API
