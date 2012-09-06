@@ -10,4 +10,4 @@ require_once($dir . '/../vendor/autoload.php');
 require_once($dir . '/../vendor/lastcraft/simpletest/autorun.php');
 
 // Include all the test suites
-// TODO
+require_once($dir . '/DeskTester.php');
