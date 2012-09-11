@@ -8,13 +8,29 @@ namespace Desk;
 abstract class Client
 {
 
+	const CASES        = 1;
+	const CUSTOMERS    = 2;
+	const INTERACTIONS = 3;
+	const USERS        = 4;
+	const USER_GROUPS  = 5;
+	const TOPICS       = 6;
+	const ARTICLES     = 7;
+	const MACROS       = 8;
+
 	/**
 	 * Maps client types to classes.
 	 *
 	 * @var array
 	 */
 	private static $classMap = array(
-		// TODO
+		self::CASES        => '\Desk\Client\Cases',
+		self::CUSTOMERS    => '\Desk\Client\Customers',
+		self::INTERACTIONS => '\Desk\Client\Interactions',
+		self::USERS        => '\Desk\Client\Users',
+		self::USER_GROUPS  => '\Desk\Client\UserGroups',
+		self::TOPICS       => '\Desk\Client\Topics',
+		self::ARTICLES     => '\Desk\Client\Articles',
+		self::MACROS       => '\Desk\Client\Macros',
 	);
 
 	/**

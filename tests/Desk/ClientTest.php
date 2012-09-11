@@ -5,6 +5,25 @@ namespace Desk;
 class ClientTest extends \UnitTestCase
 {
 
+	public function testIsValidType()
+	{
+		$types = array(
+			Client::CASES,
+			Client::CUSTOMERS,
+			Client::INTERACTIONS,
+			Client::USERS,
+			Client::USER_GROUPS,
+			Client::TOPICS,
+			Client::ARTICLES,
+			Client::MACROS,
+		);
+
+		foreach ($types as $type)
+		{
+			$this->assertTrue(Client::isValidType($type));
+		}
+	}
+
 	public function testIsValidTypeWithInvalidTypes()
 	{
 		$types = array(

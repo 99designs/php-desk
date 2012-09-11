@@ -52,4 +52,44 @@ class Instance
 		return isset($this->clients[$type]) ? $this->clients[$type] : null;
 	}
 
+	public function cases()
+	{
+		return $this->client(\Desk\Client::CASES);
+	}
+
+	public function customers()
+	{
+		return $this->client(\Desk\Client::CUSTOMERS);
+	}
+
+	public function interactions()
+	{
+		return $this->client(\Desk\Client::INTERACTIONS);
+	}
+
+	public function users()
+	{
+		return $this->client(\Desk\Client::USERS);
+	}
+
+	public function userGroups()
+	{
+		return $this->client(\Desk\Client::USER_GROUPS);
+	}
+
+	public function topics()
+	{
+		return $this->client(\Desk\Client::TOPICS);
+	}
+
+	public function articles()
+	{
+		return $this->client(\Desk\Client::ARTICLES);
+	}
+
+	public function macros()
+	{
+		return $this->client(\Desk\Client::MACROS);
+	}
+
 }
