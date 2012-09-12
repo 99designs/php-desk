@@ -63,7 +63,7 @@ abstract class Client
 	public static function factory($type)
 	{
 		if (!self::isValidType($type))
-			throw new InvalidArgumentException("Unknown Desk API Client type \"$type\"");
+			throw new \Desk\Exception\InvalidArgumentException("Unknown Desk API Client type \"$type\"");
 
 		$class = self::$classMap[$type];
 		return new $class();
@@ -85,7 +85,7 @@ abstract class Client
 			if ($transport instanceof \Desk\Transport)
 				$this->transport = $transport;
 			else
-				throw new \InvalidArgumentException('Desk API transport is not an instance of \Desk\Transport');
+				throw new \Desk\Exception\InvalidArgumentException('Desk API transport is not an instance of \Desk\Transport');
 		}
 
 		return $this->transport;

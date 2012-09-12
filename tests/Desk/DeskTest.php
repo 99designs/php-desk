@@ -21,7 +21,7 @@ class DeskTest extends \UnitTestCase
 
 	public function testUninitializedException()
 	{
-		$this->expectException('BadMethodCallException');
+		$this->expectException('\Desk\Exception\BadMethodCallException');
 		\Desk::instance();
 	}
 
@@ -48,11 +48,7 @@ class DeskTest extends \UnitTestCase
 
 	public function testInvalidStaticMethodCallException()
 	{
-		$instance = \Mockery::mock('\Desk\Instance');
-
-		\Desk::instance($instance);
-
-		$this->expectException('BadMethodCallException');
+		$this->expectException('\Desk\Exception\BadMethodCallException');
 		$result = \Desk::nonExistantApiClient();
 	}
 

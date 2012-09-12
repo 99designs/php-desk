@@ -47,11 +47,11 @@ class Desk
 			if ($instance instanceof \Desk\Instance)
 				self::$instance = $instance;
 			else
-				throw new InvalidArgumentException('Invalid Desk API instance, not instance of \Desk\Instance');
+				throw new \Desk\Exception\InvalidArgumentException('Invalid Desk API instance, not instance of \Desk\Instance');
 		}
 
 		if (!self::$instance)
-			throw new BadMethodCallException('Desk.com API not initialised');
+			throw new \Desk\Exception\BadMethodCallException('Desk.com API not initialised');
 
 		return self::$instance;
 	}
@@ -75,7 +75,7 @@ class Desk
 	{
 		$callback = array(self::instance(), $function);
 		if (!is_callable($callback))
-			throw new BadMethodCallException("Unknown Desk API \"$function\"");
+			throw new \Desk\Exception\BadMethodCallException("Unknown Desk API \"$function\"");
 
 		return call_user_func_array($callback, $arguments);
 	}

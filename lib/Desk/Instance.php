@@ -39,14 +39,14 @@ class Instance
 	public function client($type, $client = null)
 	{
 		if (!\Desk\Client::isValidType($type))
-			throw new \InvalidArgumentException();
+			throw new \Desk\Exception\InvalidArgumentException("Invalid Desk API client type \"$type\"");
 
 		if ($client)
 		{
 			if ($client instanceof \Desk\Client)
 				$this->clients[$type] = $client;
 			else
-				throw new \InvalidArgumentException('Desk API client is not an instance of \Desk\Client');
+				throw new \Desk\Exception\InvalidArgumentException('Desk API client is not an instance of \Desk\Client');
 		}
 
 		return isset($this->clients[$type]) ? $this->clients[$type] : null;
