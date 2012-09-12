@@ -10,7 +10,7 @@ class OAuth implements Transport
 	/**
 	 * The OAuth object being wrapped.
 	 *
-	 * @var OAuth
+	 * @var \OAuth
 	 */
 	private $adapter;
 
@@ -38,9 +38,9 @@ class OAuth implements Transport
 	/**
 	 * Combined getter/setter for the adapter.
 	 *
-	 * @param OAuth $adapter The new adapter (optional)
+	 * @param \OAuth $adapter The new adapter (optional)
 	 *
-	 * @return OAuth
+	 * @return \OAuth
 	 */
 	public function adapter($adapter = null)
 	{
@@ -76,7 +76,8 @@ class OAuth implements Transport
 	 */
 	public function get($path, $query = array())
 	{
-		return $this->request($path, $query, array(), 'get');
+		$path = $this->addQueryString($path, $query);
+		return $this->request('get', $path);
 	}
 
 	/**
@@ -91,7 +92,7 @@ class OAuth implements Transport
 	 */
 	public function post($path, $data = array())
 	{
-		return $this->request($path, array(), $data, 'post');
+		return $this->request('post', $path, $data);
 	}
 
 	/**
@@ -107,7 +108,7 @@ class OAuth implements Transport
 	 */
 	public function put($path, $data = array())
 	{
-		return $this->request($path, array(), $data, 'put');
+		return $this->request('put', $path, $data);
 	}
 
 	/**
@@ -123,41 +124,38 @@ class OAuth implements Transport
 	 */
 	public function delete($path, $query = array())
 	{
-		return $this->request($path, $query, array(), 'delete');
+		$path = $this->addQueryString($path, $query);
+		return $this->request('delete', $path);
 	}
 
-	private function request($path, $query = array(), $parameters = array(), $method = 'GET', $headers = array())
+	private function request($method = 'GET', $path, $parameters = array(), $headers = array())
 	{
-		$url = $this->getUrl($this->host, $path, $query);
+		$url = rtrim($this->host, '/') . '/' . ltrim($path, '/');
 
 		$result = $this->adapter->fetch($url, $parameters, strtoupper($method), $headers);
 
 		$body = $this->adapter->getLastResponse();
-
 		return new Response($body);
 	}
 
 	/**
-	 * Builds a URL from hostname, path and query string.
+	 * Adds a query string to a URL path.
 	 *
-	 * @param string $host The hostname.
 	 * @param string $path The original path (can contain "?").
 	 * @param array $query An optional associative array of query
 	 * string parameters.
 	 *
 	 * @return string
 	 */
-	private function getUrl($host, $path = '', $query = array())
+	private function addQueryString($path = '', $query = array())
 	{
-		$url = rtrim($host, '/') . '/' . ltrim($path, '/');
-
 		if ($query)
 		{
 			$separator = (strpos($path, '?') === false) ? '?' : '&';
-			$url .= $separator . http_build_query($query);
+			$path .= $separator . http_build_query($query);
 		}
 
-		return $url;
+		return $path;
 	}
 
 }
