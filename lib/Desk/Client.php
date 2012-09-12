@@ -40,6 +40,16 @@ abstract class Client
 	 */
 	private $transport;
 
+	/**
+	 * The Desk API version to be used.
+	 *
+	 * Will be used for all API calls unless overridden in child classes.
+	 *
+	 * @var string
+	 */
+	private $version = 'v1';
+
+
 	public static function getAllTypes()
 	{
 		return array_keys(self::$classMap);
@@ -89,6 +99,39 @@ abstract class Client
 		}
 
 		return $this->transport;
+	}
+
+	/**
+	 * Adds the version number and prefix to a URL path.
+	 *
+	 * @param string $path The original path
+	 *
+	 * @return string
+	 */
+	private function getPath($path)
+	{
+		$path = ltrim($path, '/');
+		return "/api/{$this->version}/$path";
+	}
+
+	protected function get($path, $query = array())
+	{
+		return $this->transport()->get($this->getPath($path), $query);
+	}
+
+	protected function post($path, $data = array())
+	{
+		return $this->transport()->post($this->getPath($path), $data);
+	}
+
+	protected function put($path, $data = array())
+	{
+		return $this->transport()->put($this->getPath($path), $data);
+	}
+
+	protected function delete($path, $query = array())
+	{
+		return $this->transport()->delete($this->getPath($path), $query);
 	}
 
 }
