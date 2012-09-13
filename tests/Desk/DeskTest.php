@@ -1,5 +1,7 @@
 <?php
 
+use Desk\Client as Client;
+
 class DeskTest extends \UnitTestCase
 {
 
@@ -13,6 +15,21 @@ class DeskTest extends \UnitTestCase
 	{
 		$hostname = Desk::getHostname('foobar');
 		$this->assertIdentical('https://foobar.desk.com', $hostname);
+	}
+
+	public function testClient()
+	{
+		$instance = $this->getInstance();
+
+		$client = \Mockery::mock('\Desk\Client');
+		$instance->client(Client::ARTICLES, $client);
+	}
+
+	public function testInvalidClient()
+	{
+		$instance = $this->getInstance();
+		$this->expectException('\Desk\Exception\InvalidArgumentException');
+		$instance->client(Client::ARTICLES, new stdClass());
 	}
 
 	private function getInstance()
