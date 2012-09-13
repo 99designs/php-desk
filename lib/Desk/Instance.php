@@ -21,11 +21,6 @@ class Instance
 		$hostname = \Desk::getHostname($subdomain);
 		$transport = new \Desk\Transport\OAuth($hostname, $consumerKey, $consumerSecret);
 		$transport->setToken($accessToken, $accessSecret);
-
-		foreach (\Desk\Client::getAllTypes() as $type)
-		{
-			$this->client($type, \Desk\Client::factory($type, $transport));
-		}
 	}
 
 	/**
@@ -49,7 +44,11 @@ class Instance
 				throw new \Desk\Exception\InvalidArgumentException('Desk API client is not an instance of \Desk\Client');
 		}
 
-		return isset($this->clients[$type]) ? $this->clients[$type] : null;
+		// initialise client if it doesn't exist
+		if (empty($this->clients[$type]))
+			$this->clients[$type] = \Desk\Client::factory($type, $transport);
+
+		return $this->clients[$type];
 	}
 
 	public function cases()
