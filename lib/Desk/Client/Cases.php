@@ -2,7 +2,9 @@
 
 namespace Desk\Client;
 
-class Cases extends \Desk\Client
+use Desk\Client;
+
+class Cases extends Client
 {
 
 	// TODO

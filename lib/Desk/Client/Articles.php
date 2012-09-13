@@ -2,7 +2,10 @@
 
 namespace Desk\Client;
 
-class Articles extends \Desk\Client
+use Desk\Client;
+use Desk\Exception;
+
+class Articles extends Client
 {
 
 	/**
@@ -31,13 +34,13 @@ class Articles extends \Desk\Client
 		// validate arguments
 		$topicId = (int) $topicId;
 		if ($topicId <= 0)
-			throw new \Desk\Exception\InvalidArgumentException('Topic ID must be specified, and must be greater than 0');
+			throw new Exception\InvalidArgumentException('Topic ID must be specified, and must be greater than 0');
 
 		if (empty($subject))
-			throw new \Desk\Exception\InvalidArgumentException('Article name must be specified');
+			throw new Exception\InvalidArgumentException('Article name must be specified');
 
 		if (!is_array($options))
-			throw new \Desk\Exception\InvalidArgumentException('$options must be an array');
+			throw new Exception\InvalidArgumentException('$options must be an array');
 
 		// build request parameters
 		$fields = array(
@@ -65,10 +68,10 @@ class Articles extends \Desk\Client
 		$json = $response->json();
 
 		if (empty($json->success))
-			throw new \Desk\Exception\ApiCallFailureException('Desk.com article creation failed', $response);
+			throw new Exception\ApiCallFailureException('Desk.com article creation failed', $response);
 
 		if (empty($json->results->article->id))
-			throw new \Desk\Exception\InvalidApiResponseException('Invalid response from Desk.com API (expected article to have an ID)', $response);
+			throw new Exception\InvalidApiResponseException('Invalid response from Desk.com API (expected article to have an ID)', $response);
 
 		return $json->results->article->id;
 	}
@@ -85,14 +88,14 @@ class Articles extends \Desk\Client
 		// validate arguments
 		$articleId = (int) $articleId;
 		if ($articleId <= 0)
-			throw new \Desk\Exception\InvalidArgumentException('Article ID must be specified, and must be greater than 0');
+			throw new Exception\InvalidArgumentException('Article ID must be specified, and must be greater than 0');
 
 		// send request
 		$response = $this->get("/articles/$articleId.json");
 		$json = $response->json();
 
 		if (empty($json->article))
-			throw new \Desk\Exception\ApiCallFailureException('Desk.com article retrieval failed', $response);
+			throw new Exception\ApiCallFailureException('Desk.com article retrieval failed', $response);
 
 		return $json->article;
 	}
@@ -114,7 +117,7 @@ class Articles extends \Desk\Client
 		// validate arguments
 		$topicId = (int) $topicId;
 		if ($topicId <= 0)
-			throw new \Desk\Exception\InvalidArgumentException('Topic ID must be specified, and must be greater than 0');
+			throw new Exception\InvalidArgumentException('Topic ID must be specified, and must be greater than 0');
 
 		// build request parameters
 		$parameters = array_filter(array(
@@ -127,7 +130,7 @@ class Articles extends \Desk\Client
 		$json = $response->json();
 
 		if (!isset($json->results))
-			throw new \Desk\Exception\InvalidApiResponseException('Invalid response from Desk.com API (expected response to have a "results" property)', $response);
+			throw new Exception\InvalidApiResponseException('Invalid response from Desk.com API (expected response to have a "results" property)', $response);
 
 		return $json->results;
 	}
@@ -163,10 +166,10 @@ class Articles extends \Desk\Client
 		// validate arguments
 		$articleId = (int) $articleId;
 		if ($articleId <= 0)
-			throw new \Desk\Exception\InvalidArgumentException('Article ID must be specified, and must be greater than 0');
+			throw new Exception\InvalidArgumentException('Article ID must be specified, and must be greater than 0');
 
 		if (!is_array($fields))
-			throw new \Desk\Exception\InvalidArgumentException('$fields must be an array');
+			throw new Exception\InvalidArgumentException('$fields must be an array');
 
 		// build request parameters
 		$parameters = array();
@@ -201,7 +204,7 @@ class Articles extends \Desk\Client
 		$json = $response->json();
 
 		if (empty($json->success))
-			throw new \Desk\Exception\ApiCallFailureException('Desk.com article update failed', $response);
+			throw new Exception\ApiCallFailureException('Desk.com article update failed', $response);
 	}
 
 	/**
@@ -216,14 +219,14 @@ class Articles extends \Desk\Client
 		// validate parameters
 		$articleId = (int) $articleId;
 		if ($articleId <= 0)
-			throw new \Desk\Exception\InvalidArgumentException('Article ID must be specified, and must be greater than 0');
+			throw new Exception\InvalidArgumentException('Article ID must be specified, and must be greater than 0');
 
 		// send request
 		$response = $this->delete("/articles/$articleId.json");
 		$json = $response->json();
 
 		if (empty($json->success))
-			throw new \Desk\Exception\ApiCallFailureException('Desk.com article deletion failed', $response);
+			throw new Exception\ApiCallFailureException('Desk.com article deletion failed', $response);
 	}
 
 }

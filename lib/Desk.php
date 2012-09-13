@@ -1,5 +1,9 @@
 <?php
 
+use Desk\Client;
+use Desk\Exception;
+use Desk\Transport;
+
 class Desk
 {
 
@@ -33,7 +37,7 @@ class Desk
 	public function __construct($subdomain, $consumerKey, $consumerSecret, $accessToken, $accessSecret)
 	{
 		$hostname = self::getHostname($subdomain);
-		$transport = new \Desk\Transport\OAuth($hostname, $consumerKey, $consumerSecret);
+		$transport = new Transport\OAuth($hostname, $consumerKey, $consumerSecret);
 		$transport->setToken($accessToken, $accessSecret);
 	}
 
@@ -59,62 +63,62 @@ class Desk
 	 */
 	public function client($type, $client = null)
 	{
-		if (!\Desk\Client::isValidType($type))
-			throw new \Desk\Exception\InvalidArgumentException("Invalid Desk API client type \"$type\"");
+		if (!Client::isValidType($type))
+			throw new Exception\InvalidArgumentException("Invalid Desk API client type \"$type\"");
 
 		if ($client)
 		{
-			if ($client instanceof \Desk\Client)
+			if ($client instanceof Client)
 				$this->clients[$type] = $client;
 			else
-				throw new \Desk\Exception\InvalidArgumentException('Desk API client is not an instance of \Desk\Client');
+				throw new Exception\InvalidArgumentException('Desk API client is not an instance of \Desk\Client');
 		}
 
 		// initialise client if it doesn't exist
 		if (empty($this->clients[$type]))
-			$this->clients[$type] = \Desk\Client::factory($type, $transport);
+			$this->clients[$type] = Client::factory($type, $transport);
 
 		return $this->clients[$type];
 	}
 
 	public function cases()
 	{
-		return $this->client(\Desk\Client::CASES);
+		return $this->client(Client::CASES);
 	}
 
 	public function customers()
 	{
-		return $this->client(\Desk\Client::CUSTOMERS);
+		return $this->client(Client::CUSTOMERS);
 	}
 
 	public function interactions()
 	{
-		return $this->client(\Desk\Client::INTERACTIONS);
+		return $this->client(Client::INTERACTIONS);
 	}
 
 	public function users()
 	{
-		return $this->client(\Desk\Client::USERS);
+		return $this->client(Client::USERS);
 	}
 
 	public function userGroups()
 	{
-		return $this->client(\Desk\Client::USER_GROUPS);
+		return $this->client(Client::USER_GROUPS);
 	}
 
 	public function topics()
 	{
-		return $this->client(\Desk\Client::TOPICS);
+		return $this->client(Client::TOPICS);
 	}
 
 	public function articles()
 	{
-		return $this->client(\Desk\Client::ARTICLES);
+		return $this->client(Client::ARTICLES);
 	}
 
 	public function macros()
 	{
-		return $this->client(\Desk\Client::MACROS);
+		return $this->client(Client::MACROS);
 	}
 
 }

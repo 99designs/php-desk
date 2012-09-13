@@ -2,6 +2,8 @@
 
 namespace Desk\Exception;
 
+use Desk\Transport\Response;
+
 class ApiCallFailureException extends UnexpectedValueException
 {
 

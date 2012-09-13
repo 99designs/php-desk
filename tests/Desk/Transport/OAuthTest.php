@@ -12,7 +12,7 @@ class OAuthTest extends \UnitTestCase
 	 */
 	private function oauth()
 	{
-		$oauth = new OAuth('http://example.org', 'key', 'secret');
+		$oauth = new \Desk\Transport\OAuth('http://example.org', 'key', 'secret');
 		$oauth->adapter(\Mockery::mock('\OAuth'));
 
 		return $oauth;

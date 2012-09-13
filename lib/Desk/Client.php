@@ -2,6 +2,9 @@
 
 namespace Desk;
 
+use Desk\Exception;
+use Desk\Transport;
+
 /**
  * Abstract base class for Desk Clients.
  */
@@ -73,7 +76,7 @@ abstract class Client
 	public static function factory($type)
 	{
 		if (!self::isValidType($type))
-			throw new \Desk\Exception\InvalidArgumentException("Unknown Desk API Client type \"$type\"");
+			throw new Exception\InvalidArgumentException("Unknown Desk API Client type \"$type\"");
 
 		$class = self::$classMap[$type];
 		return new $class();
@@ -92,10 +95,10 @@ abstract class Client
 	{
 		if ($transport)
 		{
-			if ($transport instanceof \Desk\Transport)
+			if ($transport instanceof Transport)
 				$this->transport = $transport;
 			else
-				throw new \Desk\Exception\InvalidArgumentException('Desk API transport is not an instance of \Desk\Transport');
+				throw new Exception\InvalidArgumentException('Desk API transport is not an instance of \Desk\Transport');
 		}
 
 		return $this->transport;

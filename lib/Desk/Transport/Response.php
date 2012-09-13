@@ -2,6 +2,8 @@
 
 namespace Desk\Transport;
 
+use Desk\Exception;
+
 class Response
 {
 
@@ -27,7 +29,7 @@ class Response
 		json_decode(true); // reset error state. see PHP bug #54484
 
 		if ($error != JSON_ERROR_NONE)
-			throw new \Desk\Exception\JsonDecodeException($error);
+			throw new Exception\JsonDecodeException($error);
 
 		return $result;
 	}

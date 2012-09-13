@@ -2,14 +2,17 @@
 
 namespace Desk\Client;
 
+use Desk\Client;
+use Desk\Transport\Response;
+
 require_once(dirname(__FILE__) . '/AbstractClientTestCase.php');
 
-class TopicsTest extends \Desk\Client\AbstractClientTestCase
+class TopicsTest extends AbstractClientTestCase
 {
 
 	protected function getType()
 	{
-		return \Desk\Client::TOPICS;
+		return Client::TOPICS;
 	}
 
 	public function testCreate()
@@ -26,7 +29,7 @@ class TopicsTest extends \Desk\Client\AbstractClientTestCase
 					'description'    => 'efgh',
 				)
 			)
-			->andReturn(new \Desk\Transport\Response('{
+			->andReturn(new Response('{
 				"success": true,
 				"results": {
 					"topic": {
@@ -56,7 +59,7 @@ class TopicsTest extends \Desk\Client\AbstractClientTestCase
 					'show_in_portal' => false,
 				)
 			)
-			->andReturn(new \Desk\Transport\Response('{
+			->andReturn(new Response('{
 				"success": true,
 				"results": {
 					"topic": {
@@ -91,7 +94,7 @@ class TopicsTest extends \Desk\Client\AbstractClientTestCase
 		$client->transport()
 			->shouldReceive('get')
 			->with("/api/v1/topics/3456.json", array())
-			->andReturn(new \Desk\Transport\Response('{
+			->andReturn(new Response('{
 				"topic": {
 					"id": 3456,
 					"name": "Topic Name",
@@ -115,7 +118,7 @@ class TopicsTest extends \Desk\Client\AbstractClientTestCase
 		$client->transport()
 			->shouldReceive('get', 'post', 'put', 'delete')->never();
 
-		$this->expectException('InvalidArgumentException');
+		$this->expectException('\Desk\Exception\InvalidArgumentException');
 		$client->retrieve('foobar');
 	}
 
@@ -126,7 +129,7 @@ class TopicsTest extends \Desk\Client\AbstractClientTestCase
 		 $client->transport()
 		 	->shouldReceive('get')
 		 	->with('/api/v1/topics.json', array('count' => 1, 'page' => 2))
-		 	->andReturn(new \Desk\Transport\Response('{
+			->andReturn(new Response('{
 				"results": [{
 					"topic": {
 						"id": 2,
@@ -155,7 +158,7 @@ class TopicsTest extends \Desk\Client\AbstractClientTestCase
 		$client->transport()
 			->shouldReceive('put')
 			->with('/api/v1/topics/4567.json', $fields)
-			->andReturn(new \Desk\Transport\Response('{
+			->andReturn(new Response('{
 				"success": true,
 				"results": {
 					"topic": {
@@ -183,7 +186,7 @@ class TopicsTest extends \Desk\Client\AbstractClientTestCase
 					'name'     => 'newName',
 				)
 			)
-			->andReturn(new \Desk\Transport\Response('{
+			->andReturn(new Response('{
 				"success": true,
 				"results": {
 					"topic": {
@@ -205,7 +208,7 @@ class TopicsTest extends \Desk\Client\AbstractClientTestCase
 		$client->transport()
 			->shouldReceive('delete')
 			->with('/api/v1/topics/6789.json', array())
-			->andReturn(new \Desk\Transport\Response('{
+			->andReturn(new Response('{
 				"success": true
 			}'));
 
@@ -219,7 +222,7 @@ class TopicsTest extends \Desk\Client\AbstractClientTestCase
 		$client->transport()
 			->shouldReceive('get', 'post', 'put', 'delete')->never();
 
-		$this->expectException('InvalidArgumentException');
+		$this->expectException('\Desk\Exception\InvalidArgumentException');
 		$client->destroy('barbaz');
 	}
 

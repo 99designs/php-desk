@@ -2,14 +2,17 @@
 
 namespace Desk\Client;
 
+use Desk\Client;
+use Desk\Transport\Response;
+
 require_once(dirname(__FILE__) . '/AbstractClientTestCase.php');
 
-class ArticlesTest extends \Desk\Client\AbstractClientTestCase
+class ArticlesTest extends AbstractClientTestCase
 {
 
 	protected function getType()
 	{
-		return \Desk\Client::ARTICLES;
+		return Client::ARTICLES;
 	}
 
 	public function testCreate()
@@ -26,7 +29,7 @@ class ArticlesTest extends \Desk\Client\AbstractClientTestCase
 					'quickcode'    => 'EXAMPLE_QUICK',
 				)
 			)
-			->andReturn(new \Desk\Transport\Response('{
+			->andReturn(new Response('{
 				"success": true,
 				"results": {
 					"article": {
@@ -52,7 +55,7 @@ class ArticlesTest extends \Desk\Client\AbstractClientTestCase
 		$client->transport()
 			->shouldReceive('get')
 			->with('/api/v1/articles/222.json', array())
-			->andReturn(new \Desk\Transport\Response('{
+			->andReturn(new Response('{
 				"article": {
 					"id": 222,
 					"subject": "Example Article"
@@ -71,7 +74,7 @@ class ArticlesTest extends \Desk\Client\AbstractClientTestCase
 		$client->transport()
 			->shouldReceive('get', 'post', 'put', 'delete')->never();
 
-		$this->expectException('InvalidArgumentException');
+		$this->expectException('\Desk\Exception\InvalidArgumentException');
 		$client->retrieve('bongo');
 	}
 
@@ -82,7 +85,7 @@ class ArticlesTest extends \Desk\Client\AbstractClientTestCase
 		$client->transport()
 			->shouldReceive('get')
 			->with('/api/v1/topics/454/articles.json', array('count' => 1, 'page' => 3))
-			->andReturn(new \Desk\Transport\Response('{
+			->andReturn(new Response('{
 				"results": [{
 					"article": {
 						"id": 654,
@@ -108,7 +111,7 @@ class ArticlesTest extends \Desk\Client\AbstractClientTestCase
 		$client->transport()
 			->shouldReceive('put')
 			->with('/api/v1/articles/789.json', $fields)
-			->andReturn(new \Desk\Transport\Response('{
+			->andReturn(new Response('{
 				"success": true,
 				"results": {
 					"article": {
@@ -128,7 +131,7 @@ class ArticlesTest extends \Desk\Client\AbstractClientTestCase
 		$client->transport()
 			->shouldReceive('delete')
 			->with('/api/v1/articles/412.json', array())
-			->andReturn(new \Desk\Transport\Response('{
+			->andReturn(new Response('{
 				"success": true
 			}'));
 
@@ -142,7 +145,7 @@ class ArticlesTest extends \Desk\Client\AbstractClientTestCase
 		$client->transport()
 			->shouldReceive('get', 'post', 'put', 'delete')->never();
 
-		$this->expectException('InvalidArgumentException');
+		$this->expectException('\Desk\Exception\InvalidArgumentException');
 		$client->destroy('bazbar');
 	}
 

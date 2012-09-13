@@ -2,7 +2,9 @@
 
 namespace Desk\Client;
 
-class Interactions extends \Desk\Client
+use Desk\Client;
+
+class Interactions extends Client
 {
 
 	// TODO

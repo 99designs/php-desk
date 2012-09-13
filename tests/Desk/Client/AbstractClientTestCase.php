@@ -2,6 +2,8 @@
 
 namespace Desk\Client;
 
+use Desk\Client;
+
 abstract class AbstractClientTestCase extends \UnitTestCase
 {
 
@@ -12,7 +14,7 @@ abstract class AbstractClientTestCase extends \UnitTestCase
 	 */
 	final protected function client()
 	{
-		$client = \Desk\Client::factory($this->getType());
+		$client = Client::factory($this->getType());
 		$client->transport(\Mockery::mock('\Desk\Transport'));
 		return $client;
 	}

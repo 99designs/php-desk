@@ -2,7 +2,10 @@
 
 namespace Desk\Client;
 
-class Topics extends \Desk\Client
+use Desk\Client;
+use Desk\Exception;
+
+class Topics extends Client
 {
 
 	/**
@@ -20,7 +23,7 @@ class Topics extends \Desk\Client
 	{
 		// validate arguments
 		if (empty($name))
-			throw new \Desk\Exception\InvalidArgumentException('Topic name must be specified');
+			throw new Exception\InvalidArgumentException('Topic name must be specified');
 
 		// build request parameters
 		$parameters = array(
@@ -36,10 +39,10 @@ class Topics extends \Desk\Client
 		$json = $response->json();
 
 		if (empty($json->success))
-			throw new \Desk\Exception\ApiCallFailureException('Desk.com topic creation failed', $response);
+			throw new Exception\ApiCallFailureException('Desk.com topic creation failed', $response);
 
 		if (empty($json->results->topic->id))
-			throw new \Desk\Exception\InvalidApiResponseException('Invalid response from Desk.com API (expected topic to have an ID)', $response);
+			throw new Exception\InvalidApiResponseException('Invalid response from Desk.com API (expected topic to have an ID)', $response);
 
 		return $json->results->topic->id;
 	}
@@ -56,14 +59,14 @@ class Topics extends \Desk\Client
 		// validate arguments
 		$topicId = (int) $topicId;
 		if ($topicId <= 0)
-			throw new \Desk\Exception\InvalidArgumentException('Topic ID must be specified, and must be greater than 0');
+			throw new Exception\InvalidArgumentException('Topic ID must be specified, and must be greater than 0');
 
 		// send request
 		$response = $this->get("/topics/$topicId.json");
 		$json = $response->json();
 
 		if (empty($json->topic))
-			throw new \Desk\Exception\ApiCallFailureException('Desk.com topic retrieval failed', $response);
+			throw new Exception\ApiCallFailureException('Desk.com topic retrieval failed', $response);
 
 		return $json->topic;
 	}
@@ -91,7 +94,7 @@ class Topics extends \Desk\Client
 		$json = $response->json();
 
 		if (!isset($json->results))
-			throw new \Desk\Exception\InvalidApiResponseException('Invalid response from Desk.com API (expected response to have a "results" property)', $response);
+			throw new Exception\InvalidApiResponseException('Invalid response from Desk.com API (expected response to have a "results" property)', $response);
 
 		return $json->results;
 	}
@@ -111,10 +114,10 @@ class Topics extends \Desk\Client
 		// validate arguments
 		$topicId = (int) $topicId;
 		if ($topicId <= 0)
-			throw new \Desk\Exception\InvalidArgumentException('Topic ID must be specified, and must be greater than 0');
+			throw new Exception\InvalidArgumentException('Topic ID must be specified, and must be greater than 0');
 
 		if (!is_array($fields))
-			throw new \Desk\Exception\InvalidArgumentException('$fields must be an array');
+			throw new Exception\InvalidArgumentException('$fields must be an array');
 
 		// build request parameters
 		$parameters = array();
@@ -129,7 +132,7 @@ class Topics extends \Desk\Client
 		$json = $response->json();
 
 		if (empty($json->success))
-			throw new \Desk\Exception\ApiCallFailureException('Desk.com topic update failed', $response);
+			throw new Exception\ApiCallFailureException('Desk.com topic update failed', $response);
 	}
 
 	/**
@@ -154,7 +157,7 @@ class Topics extends \Desk\Client
 		// validate arguments
 		$topicId = (int) $topicId;
 		if ($topicId <= 0)
-			throw new \Desk\Exception\InvalidArgumentException('Topic ID must be specified, and must be greater than 0');
+			throw new Exception\InvalidArgumentException('Topic ID must be specified, and must be greater than 0');
 
 		// build request parameters
 		$parameters = array(
@@ -167,7 +170,7 @@ class Topics extends \Desk\Client
 		$json = $response->json();
 
 		if (empty($json->success))
-			throw new \Desk\Exception\ApiCallFailureException('Desk.com topic translation update failed', $response);
+			throw new Exception\ApiCallFailureException('Desk.com topic translation update failed', $response);
 	}
 
 	/**
@@ -182,14 +185,14 @@ class Topics extends \Desk\Client
 		// validate arguments
 		$topicId = (int) $topicId;
 		if ($topicId <= 0)
-			throw new \Desk\Exception\InvalidArgumentException('Topic ID must be specified, and must be greater than 0');
+			throw new Exception\InvalidArgumentException('Topic ID must be specified, and must be greater than 0');
 
 		// send request
 		$response = $this->delete("/topics/$topicId.json");
 		$json = $response->json();
 
 		if (empty($json->success))
-			throw new \Desk\Exception\ApiCallFailureException('Desk.com topic deletion failed', $response);
+			throw new Exception\ApiCallFailureException('Desk.com topic deletion failed', $response);
 	}
 
 }

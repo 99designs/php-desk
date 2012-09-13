@@ -2,7 +2,9 @@
 
 namespace Desk\Client;
 
-class Macros extends \Desk\Client
+use Desk\Client;
+
+class Macros extends Client
 {
 
 	// TODO
