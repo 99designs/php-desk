@@ -61,6 +61,8 @@ abstract class Client
 	/**
 	 * Determines whether a client type is a valid type.
 	 *
+	 * @param int $type The type of API client
+	 *
 	 * @return boolean
 	 */
 	public static function isValidType($type)
