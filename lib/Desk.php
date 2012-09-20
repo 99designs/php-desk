@@ -22,7 +22,7 @@ class Desk
 	 *
 	 * @var \Desk\Transport
 	 */
-	private $tranport = array();
+	private $transport = array();
 
 
 	/**
@@ -39,6 +39,7 @@ class Desk
 		$hostname = self::getHostname($subdomain);
 		$transport = new Transport\OAuth($hostname, $consumerKey, $consumerSecret);
 		$transport->setToken($accessToken, $accessSecret);
+		$this->transport($transport);
 	}
 
 	/**
@@ -79,6 +80,32 @@ class Desk
 			$this->clients[$type] = Client::factory($type, $transport);
 
 		return $this->clients[$type];
+	}
+
+	/**
+	 * Combined getter/setter for the transport.
+	 *
+	 * @param \Desk\Transport The new transport to use (optional)
+	 *
+	 * @return \Desk\Transport The current transport
+	 */
+	public function transport($transport = null)
+	{
+		if ($transport)
+		{
+			if ($transport instanceof Transport)
+			{
+				$this->transport = $transport;
+				foreach ($this->clients as $client)
+					$client->transport($transport);
+			}
+			else
+			{
+				throw new Exception\InvalidArgumentException('Transport is not an instance of \Desk\Transport');
+			}
+		}
+
+		return $this->transport;
 	}
 
 	public function cases()

@@ -11,6 +11,14 @@ class DeskTest extends \UnitTestCase
 		$this->assertIsA($instance, 'Desk');
 	}
 
+	public function testConstructedTransport()
+	{
+		$instance = $this->getInstance();
+		$transport = $instance->transport();
+
+		$this->assertIsA($transport, '\Desk\Transport');
+	}
+
 	public function testGetHostname()
 	{
 		$hostname = Desk::getHostname('foobar');
