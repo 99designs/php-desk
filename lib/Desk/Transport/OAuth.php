@@ -36,6 +36,16 @@ class OAuth implements Transport
 	}
 
 	/**
+	 * Getter for the hostname.
+	 *
+	 * @return string
+	 */
+	public function host()
+	{
+		return $this->host;
+	}
+
+	/**
 	 * Combined getter/setter for the adapter.
 	 *
 	 * @param \OAuth $adapter The new adapter (optional)

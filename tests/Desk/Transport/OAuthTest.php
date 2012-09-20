@@ -18,6 +18,18 @@ class OAuthTest extends \UnitTestCase
 		return $oauth;
 	}
 
+	public function testConstruct()
+	{
+		$oauth = $this->oauth();
+		$this->assertIsA($oauth, '\Desk\Transport');
+	}
+
+	public function testConstructedHost()
+	{
+		$oauth = $this->oauth();
+		$this->assertEqual('http://example.org', $oauth->host());
+	}
+
 	public function testSetToken()
 	{
 		$oauth = $this->oauth();
