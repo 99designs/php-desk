@@ -71,17 +71,35 @@ abstract class Client
 	/**
 	 * Factory method to create a client of a particular type.
 	 *
+	 * @param int $type The type of API client
+	 * @param \Desk\Transport $transport The transport to use (optional)
+	 *
 	 * @return \Desk\Client
 	 */
-	public static function factory($type)
+	public static function factory($type, $transport = null)
 	{
 		if (!self::isValidType($type))
 			throw new Exception\InvalidArgumentException("Unknown Desk API Client type \"$type\"");
 
 		$class = self::$classMap[$type];
-		return new $class();
+		$client = new $class();
+
+		if ($transport)
+			$client->transport($transport);
+
+		return $client;
 	}
 
+
+	/**
+	 * Optionally sets the transport at construct time.
+	 *
+	 * @param \Desk\Transport $transport
+	 */
+	public function __construct($transport = null)
+	{
+		$this->transport($transport);
+	}
 
 	/**
 	 * Combined getter/setter for the transport.

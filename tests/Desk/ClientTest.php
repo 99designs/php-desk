@@ -54,4 +54,27 @@ class ClientTest extends \UnitTestCase
 		}
 	}
 
+	public function testFactory()
+	{
+		foreach (Client::getAllTypes() as $type)
+		{
+			$client = Client::factory($type);
+			$this->assertIsA($client, '\Desk\Client');
+		}
+	}
+
+	public function testFactoryWithTransport()
+	{
+		$transport = \Mockery::mock('\Desk\Transport');
+		foreach (Client::getAllTypes() as $type)
+		{
+			$client = Client::factory($type, $transport);
+			$this->assertTrue(
+				$transport === $client->transport(),
+				'Specified transport is not set on client created ' .
+				'with Client::factory()'
+			);
+		}
+	}
+
 }
