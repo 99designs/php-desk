@@ -77,7 +77,7 @@ class Desk
 
 		// initialise client if it doesn't exist
 		if (empty($this->clients[$type]))
-			$this->clients[$type] = Client::factory($type, $transport);
+			$this->clients[$type] = Client::factory($type, $this->transport);
 
 		return $this->clients[$type];
 	}
