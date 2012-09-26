@@ -2,6 +2,7 @@
 	"name": "99designs/php-desk",
 	"description": "PHP client for Desk.com API",
 	"keywords": ["desk", "desk.com", "assistly", "assistly.com", "api", "99designs"],
+	"licence": "MIT",
 	"authors": [
 		{ "name": "Brad Feehan", "email": "brad.feehan@99designs.com" }
 	],
