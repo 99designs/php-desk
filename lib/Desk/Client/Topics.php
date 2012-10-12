@@ -23,7 +23,7 @@ class Topics extends Client
 	{
 		// validate arguments
 		if (empty($name))
-			throw new Exception\InvalidArgumentException('Topic name must be specified');
+			throw new Exception\InvalidArgumentException("Invalid topic name \"$name\"");
 
 		// build request parameters
 		$parameters = array(
@@ -59,7 +59,7 @@ class Topics extends Client
 		// validate arguments
 		$topicId = (int) $topicId;
 		if ($topicId <= 0)
-			throw new Exception\InvalidArgumentException('Topic ID must be specified, and must be greater than 0');
+			throw new Exception\InvalidArgumentException("Invalid Topic ID \"$topicId\" (must be an integer greater than 0)");
 
 		// send request
 		$response = $this->get("/topics/$topicId.json");
@@ -114,10 +114,10 @@ class Topics extends Client
 		// validate arguments
 		$topicId = (int) $topicId;
 		if ($topicId <= 0)
-			throw new Exception\InvalidArgumentException('Topic ID must be specified, and must be greater than 0');
+			throw new Exception\InvalidArgumentException("Invalid Topic ID \"$topicId\" (must be an integer greater than 0)");
 
 		if (!is_array($fields))
-			throw new Exception\InvalidArgumentException('$fields must be an array');
+			throw new Exception\InvalidArgumentException("\$fields must be an array (\"$fields\" given)");
 
 		// build request parameters
 		$parameters = array();
@@ -157,7 +157,7 @@ class Topics extends Client
 		// validate arguments
 		$topicId = (int) $topicId;
 		if ($topicId <= 0)
-			throw new Exception\InvalidArgumentException('Topic ID must be specified, and must be greater than 0');
+			throw new Exception\InvalidArgumentException("Invalid Topic ID \"$topicId\" (must be an integer greater than 0)");
 
 		// build request parameters
 		$parameters = array(
@@ -185,7 +185,7 @@ class Topics extends Client
 		// validate arguments
 		$topicId = (int) $topicId;
 		if ($topicId <= 0)
-			throw new Exception\InvalidArgumentException('Topic ID must be specified, and must be greater than 0');
+			throw new Exception\InvalidArgumentException("Invalid Topic ID \"$topicId\" (must be an integer greater than 0)");
 
 		// send request
 		$response = $this->delete("/topics/$topicId.json");

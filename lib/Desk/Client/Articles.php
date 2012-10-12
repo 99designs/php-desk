@@ -32,15 +32,16 @@ class Articles extends Client
 	public function create($topicId, $subject, $options = array())
 	{
 		// validate arguments
+		if ((int)$topicId <= 0)
+			throw new Exception\InvalidArgumentException("Invalid Topic ID \"$topicId\" (must be an integer greater than 0)");
+
 		$topicId = (int) $topicId;
-		if ($topicId <= 0)
-			throw new Exception\InvalidArgumentException('Topic ID must be specified, and must be greater than 0');
 
 		if (empty($subject))
-			throw new Exception\InvalidArgumentException('Article name must be specified');
+			throw new Exception\InvalidArgumentException("Article name must be specified (\"$subject\" given)");
 
 		if (!is_array($options))
-			throw new Exception\InvalidArgumentException('$options must be an array');
+			throw new Exception\InvalidArgumentException("\$options must be an array (\"$options\" given)");
 
 		// build request parameters
 		$fields = array(
@@ -88,7 +89,7 @@ class Articles extends Client
 		// validate arguments
 		$articleId = (int) $articleId;
 		if ($articleId <= 0)
-			throw new Exception\InvalidArgumentException('Article ID must be specified, and must be greater than 0');
+			throw new Exception\InvalidArgumentException("Invalid Article ID \"$articleId\" (must be an integer greater than 0)");
 
 		// send request
 		$response = $this->get("/articles/$articleId.json");
@@ -117,7 +118,7 @@ class Articles extends Client
 		// validate arguments
 		$topicId = (int) $topicId;
 		if ($topicId <= 0)
-			throw new Exception\InvalidArgumentException('Topic ID must be specified, and must be greater than 0');
+			throw new Exception\InvalidArgumentException("Invalid Topic ID \"$topicId\" (must be an integer greater than 0)");
 
 		// build request parameters
 		$parameters = array_filter(array(
@@ -166,10 +167,10 @@ class Articles extends Client
 		// validate arguments
 		$articleId = (int) $articleId;
 		if ($articleId <= 0)
-			throw new Exception\InvalidArgumentException('Article ID must be specified, and must be greater than 0');
+			throw new Exception\InvalidArgumentException("Invalid Article ID \"$articleId\" (must be an integer greater than 0)");
 
 		if (!is_array($fields))
-			throw new Exception\InvalidArgumentException('$fields must be an array');
+			throw new Exception\InvalidArgumentException("\$fields must be an array (\"$fields\" given)");
 
 		// build request parameters
 		$parameters = array();
@@ -219,7 +220,7 @@ class Articles extends Client
 		// validate parameters
 		$articleId = (int) $articleId;
 		if ($articleId <= 0)
-			throw new Exception\InvalidArgumentException('Article ID must be specified, and must be greater than 0');
+			throw new Exception\InvalidArgumentException("Invalid Article ID \"$articleId\" (must be an integer greater than 0)");
 
 		// send request
 		$response = $this->delete("/articles/$articleId.json");
