@@ -45,7 +45,7 @@ class ArticlesTest extends AbstractClientTestCase
 			'quickcode' => 'EXAMPLE_QUICK',
 		));
 
-		$this->assertEqual(234, $articleId, "Created article ID \"$articleId\" differs from the expected ID 234");
+		$this->assertEquals(234, $articleId, "Created article ID \"$articleId\" differs from the expected ID 234");
 	}
 
 	public function testRetrieve()
@@ -64,7 +64,7 @@ class ArticlesTest extends AbstractClientTestCase
 
 		$article = $client->retrieve(222);
 
-		$this->assertEqual('Example Article', $article->subject, "Retrieved article subject \"{$article->subject}\" differs from the expected subject \"Example Article\"");
+		$this->assertEquals('Example Article', $article->subject, "Retrieved article subject \"{$article->subject}\" differs from the expected subject \"Example Article\"");
 	}
 
 	public function testRetrieveInvalidId()
@@ -74,7 +74,7 @@ class ArticlesTest extends AbstractClientTestCase
 		$client->transport()
 			->shouldReceive('get', 'post', 'put', 'delete')->never();
 
-		$this->expectException('\Desk\Exception\InvalidArgumentException');
+		$this->setExpectedException('\Desk\Exception\InvalidArgumentException');
 		$client->retrieve('bongo');
 	}
 
@@ -145,7 +145,7 @@ class ArticlesTest extends AbstractClientTestCase
 		$client->transport()
 			->shouldReceive('get', 'post', 'put', 'delete')->never();
 
-		$this->expectException('\Desk\Exception\InvalidArgumentException');
+		$this->setExpectedException('\Desk\Exception\InvalidArgumentException');
 		$client->destroy('bazbar');
 	}
 

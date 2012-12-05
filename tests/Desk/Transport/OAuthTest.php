@@ -2,7 +2,7 @@
 
 namespace Desk\Transport;
 
-class OAuthTest extends \UnitTestCase
+class OAuthTest extends \PHPUnit_Framework_TestCase
 {
 
 	/**
@@ -21,13 +21,13 @@ class OAuthTest extends \UnitTestCase
 	public function testConstruct()
 	{
 		$oauth = $this->oauth();
-		$this->assertIsA($oauth, '\Desk\Transport');
+		$this->assertInstanceOf('\Desk\Transport', $oauth);
 	}
 
 	public function testConstructedHost()
 	{
 		$oauth = $this->oauth();
-		$this->assertEqual('http://example.org', $oauth->host());
+		$this->assertEquals('http://example.org', $oauth->host());
 	}
 
 	public function testSetToken()
@@ -57,7 +57,7 @@ class OAuthTest extends \UnitTestCase
 
 		$response = $oauth->get('/hello');
 
-		$this->assertEqual($response->getBody(), 'return value');
+		$this->assertEquals($response->getBody(), 'return value');
 	}
 
 	public function testGetWithQueryParameters()
@@ -75,7 +75,7 @@ class OAuthTest extends \UnitTestCase
 
 		$response = $oauth->get('/hello', array('getkey' => 'getvalue'));
 
-		$this->assertEqual($response->getBody(), 'return value');
+		$this->assertEquals($response->getBody(), 'return value');
 	}
 
 	public function testPost()
@@ -93,7 +93,7 @@ class OAuthTest extends \UnitTestCase
 
 		$response = $oauth->post('/hello', array('postkey' => 'postvalue'));
 
-		$this->assertEqual($response->getBody(), 'return value');
+		$this->assertEquals($response->getBody(), 'return value');
 	}
 
 	public function testPut()
@@ -111,7 +111,7 @@ class OAuthTest extends \UnitTestCase
 
 		$response = $oauth->put('/hello', array('putkey' => 'putvalue'));
 
-		$this->assertEqual($response->getBody(), 'return value');
+		$this->assertEquals($response->getBody(), 'return value');
 	}
 
 	public function testDelete()
@@ -129,7 +129,7 @@ class OAuthTest extends \UnitTestCase
 
 		$response = $oauth->delete('/hello');
 
-		$this->assertEqual($response->getBody(), 'return value');
+		$this->assertEquals($response->getBody(), 'return value');
 	}
 
 }

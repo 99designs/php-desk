@@ -43,7 +43,7 @@ class TopicsTest extends AbstractClientTestCase
 
 		$topicId = $client->create('abcd', 'efgh', true);
 
-		$this->assertEqual(1234, $topicId, "Created topic ID \"$topicId\" differs from the expected ID 1234");
+		$this->assertEquals(1234, $topicId, "Created topic ID \"$topicId\" differs from the expected ID 1234");
 	}
 
 	public function testCreateNoDescription()
@@ -73,7 +73,7 @@ class TopicsTest extends AbstractClientTestCase
 
 		$topicId = $client->create('bcde');
 
-		$this->assertEqual(2345, $topicId, "Created topic ID \"$topicId\" differs from the expected ID 2345");
+		$this->assertEquals(2345, $topicId, "Created topic ID \"$topicId\" differs from the expected ID 2345");
 	}
 
 	public function testCreateNoNameFail()
@@ -83,7 +83,7 @@ class TopicsTest extends AbstractClientTestCase
 		$client->transport()
 			->shouldReceive('get', 'post', 'put', 'delete')->never();
 
-		$this->expectException('\Desk\Exception\InvalidArgumentException');
+		$this->setExpectedException('\Desk\Exception\InvalidArgumentException');
 		$client->create('');
 	}
 
@@ -105,9 +105,9 @@ class TopicsTest extends AbstractClientTestCase
 
 		$topic = $client->retrieve(3456);
 
-		$this->assertEqual(3456, $topic->id, "Retrieved topic ID \"{$topic->id}\" differs from the expected ID 3456");
-		$this->assertEqual('Topic Name', $topic->name, "Retrieved topic name \"{$topic->name}\" differs from the expected name \"Topic Name\"");
-		$this->assertEqual('Description', $topic->description, "Retrieved topic description \"{$topic->description}\" differs from the expected description \"Description\"");
+		$this->assertEquals(3456, $topic->id, "Retrieved topic ID \"{$topic->id}\" differs from the expected ID 3456");
+		$this->assertEquals('Topic Name', $topic->name, "Retrieved topic name \"{$topic->name}\" differs from the expected name \"Topic Name\"");
+		$this->assertEquals('Description', $topic->description, "Retrieved topic description \"{$topic->description}\" differs from the expected description \"Description\"");
 		$this->assertTrue($topic->show_in_portal);
 	}
 
@@ -118,7 +118,7 @@ class TopicsTest extends AbstractClientTestCase
 		$client->transport()
 			->shouldReceive('get', 'post', 'put', 'delete')->never();
 
-		$this->expectException('\Desk\Exception\InvalidArgumentException');
+		$this->setExpectedException('\Desk\Exception\InvalidArgumentException');
 		$client->retrieve('foobar');
 	}
 
@@ -222,7 +222,7 @@ class TopicsTest extends AbstractClientTestCase
 		$client->transport()
 			->shouldReceive('get', 'post', 'put', 'delete')->never();
 
-		$this->expectException('\Desk\Exception\InvalidArgumentException');
+		$this->setExpectedException('\Desk\Exception\InvalidArgumentException');
 		$client->destroy('barbaz');
 	}
 

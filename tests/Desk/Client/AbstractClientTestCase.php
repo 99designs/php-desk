@@ -4,7 +4,7 @@ namespace Desk\Client;
 
 use Desk\Client;
 
-abstract class AbstractClientTestCase extends \UnitTestCase
+abstract class AbstractClientTestCase extends \PHPUnit_Framework_TestCase
 {
 
 	/**
