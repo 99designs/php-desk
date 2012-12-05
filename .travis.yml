@@ -4,3 +4,5 @@ php:
   - 5.3
 before_script:
   - composer install --dev
+  - pecl install oauth
+  - echo "extension=oauth.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
