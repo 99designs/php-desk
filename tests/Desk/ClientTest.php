@@ -2,7 +2,7 @@
 
 namespace Desk;
 
-class ClientTest extends \UnitTestCase
+class ClientTest extends \PHPUnit_Framework_TestCase
 {
 
 	public function testIsValidType()
@@ -59,7 +59,7 @@ class ClientTest extends \UnitTestCase
 		foreach (Client::getAllTypes() as $type)
 		{
 			$client = Client::factory($type);
-			$this->assertIsA($client, '\Desk\Client');
+			$this->assertInstanceOf('\Desk\Client', $client);
 		}
 	}
 

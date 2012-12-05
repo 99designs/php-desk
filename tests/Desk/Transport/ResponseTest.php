@@ -2,17 +2,17 @@
 
 namespace Desk\Transport;
 
-class ResponseTest extends \UnitTestCase
+class ResponseTest extends \PHPUnit_Framework_TestCase
 {
 
 	public function testNormalBody()
 	{
-		$this->testBody('Test response body');
+		$this->assertResponseBody('Test response body');
 	}
 
 	public function testUnicodeBody()
 	{
-		$this->testBody('˙uʍop əpısdn pəuɹnʇ pəddılɟ ʇoƃ əɟıl ʎɯ ʍoɥ ʇnoqɐ llɐ ʎɹoʇs ɐ sı sıɥʇ');
+		$this->AssertResponseBody('˙uʍop əpısdn pəuɹnʇ pəddılɟ ʇoƃ əɟıl ʎɯ ʍoɥ ʇnoqɐ llɐ ʎɹoʇs ɐ sı sıɥʇ');
 	}
 
 	public function testJson()
@@ -27,14 +27,14 @@ class ResponseTest extends \UnitTestCase
 	{
 		$response = new Response('{"success": true'); // no closing bracket
 
-		$this->expectException('\Desk\Exception\JsonDecodeException');
+		$this->setExpectedException('\Desk\Exception\JsonDecodeException');
 		$json = $response->json();
 	}
 
-	private function testBody($body)
+	private function assertResponseBody($body)
 	{
 		$response = new Response($body);
-		$this->assertEqual($body, $response->getBody());
+		$this->assertEquals($body, $response->getBody());
 	}
 
 }

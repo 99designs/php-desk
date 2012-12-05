@@ -2,19 +2,19 @@
 
 namespace Desk\Exception;
 
-class ApiCallFailureExceptionTest extends \UnitTestCase
+class ApiCallFailureExceptionTest extends \PHPUnit_Framework_TestCase
 {
 
 	public function testConstructWithNoArguments()
 	{
 		$ex = new ApiCallFailureException();
-		$this->assertEqual('Desk.com API call failed -- No response body received', $ex->getMessage());
+		$this->assertEquals('Desk.com API call failed -- No response body received', $ex->getMessage());
 	}
 
 	public function testConstructWithMessage()
 	{
 		$ex = new ApiCallFailureException('foobar');
-		$this->assertEqual('foobar -- No response body received', $ex->getMessage());
+		$this->assertEquals('foobar -- No response body received', $ex->getMessage());
 	}
 
 	public function testConstructWithMessageAndResponse()
@@ -25,13 +25,13 @@ class ApiCallFailureExceptionTest extends \UnitTestCase
 			->getMock();
 
 		$ex = new ApiCallFailureException('lorem ipsum', $response);
-		$this->assertEqual('lorem ipsum -- Full response body: example response', $ex->getMessage());
+		$this->assertEquals('lorem ipsum -- Full response body: example response', $ex->getMessage());
 	}
 
 	public function testConstructWithInvalidResponse()
 	{
 		$ex = new ApiCallFailureException('barbaz', new \stdClass());
-		$this->assertEqual('barbaz -- No response body received', $ex->getMessage());
+		$this->assertEquals('barbaz -- No response body received', $ex->getMessage());
 	}
 
 }

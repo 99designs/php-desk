@@ -2,13 +2,13 @@
 
 use Desk\Client as Client;
 
-class DeskTest extends \UnitTestCase
+class DeskTest extends \PHPUnit_Framework_TestCase
 {
 
 	public function testConstruct()
 	{
 		$instance = $this->getInstance();
-		$this->assertIsA($instance, 'Desk');
+		$this->assertInstanceOf('Desk', $instance);
 	}
 
 	public function testConstructedTransport()
@@ -16,13 +16,13 @@ class DeskTest extends \UnitTestCase
 		$instance = $this->getInstance();
 		$transport = $instance->transport();
 
-		$this->assertIsA($transport, '\Desk\Transport');
+		$this->assertInstanceOf('\Desk\Transport', $transport);
 	}
 
 	public function testGetHostname()
 	{
 		$hostname = Desk::getHostname('foobar');
-		$this->assertIdentical('https://foobar.desk.com', $hostname);
+		$this->assertSame('https://foobar.desk.com', $hostname);
 	}
 
 	public function testClient()
@@ -36,7 +36,7 @@ class DeskTest extends \UnitTestCase
 	public function testInvalidClient()
 	{
 		$instance = $this->getInstance();
-		$this->expectException('\Desk\Exception\InvalidArgumentException');
+		$this->setExpectedException('\Desk\Exception\InvalidArgumentException');
 		$instance->client(Client::ARTICLES, new stdClass());
 	}
 
