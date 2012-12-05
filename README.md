@@ -3,6 +3,8 @@ Desk.com client
 
 A php 5.3+ wrapper for the [Desk.com API](http://dev.desk.com/)
 
+[![Build Status](https://travis-ci.org/99designs/php-desk.png)](https://travis-ci.org/99designs/php-desk)
+
 Installation
 ------------
 
