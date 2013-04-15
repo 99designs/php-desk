@@ -142,7 +142,22 @@ class OAuth implements Transport
 	{
 		$url = rtrim($this->host, '/') . '/' . ltrim($path, '/');
 
-		$result = $this->adapter->fetch($url, $parameters, strtoupper($method), $headers);
+		try {
+			$result = $this->adapter->fetch($url, $parameters, strtoupper($method), $headers);
+		} catch (\OAuthException $e) {
+
+			$response = new Response($this->adapter->getLastResponse());
+			$json = $response->json();
+
+			if (empty($json->success)) {
+				throw new \Desk\Exception\ApiCallFailureException(
+					'Desk.com request failed',
+					$response
+				);
+			} else {
+				throw $e;
+			}
+		}
 
 		$body = $this->adapter->getLastResponse();
 		return new Response($body);
