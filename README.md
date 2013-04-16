@@ -5,6 +5,8 @@ A php 5.3+ wrapper for the [Desk.com API](http://dev.desk.com/)
 
 [![Build Status](https://travis-ci.org/99designs/php-desk.png)](https://travis-ci.org/99designs/php-desk)
 
+While this is in use in some projects, it will eventually be updated/refactored to be based on Guzzle ([work in progress](https://github.com/bradfeehan/php-desk)).
+
 Installation
 ------------
 
